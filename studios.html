@@ -1,21 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studios - MyManager Tournament</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material%2BIcons:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=sans-serif:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Animate.css for beautiful animations -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    :root {
+      --primary: #003afa;
+      --secondary: #4672ff;
+      --accent: #00c999;
+      --background: #ffffff;
+      --text: #363840;
+      --font-heading: 'Poppins', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--background); color: var(--text); line-height: 1.7; }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 700; line-height: 1.3; margin-bottom: 1rem; }
+    h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); }
+    h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+    p { margin-bottom: 1rem; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    section, .section { padding: 5rem 2rem; }
+    img { max-width: 100%; height: auto; }
+    a { color: var(--primary); text-decoration: none; transition: all 0.3s ease; }
+    button, .btn { display: inline-block; background: var(--primary); color: white; border: none; padding: 0.875rem 2rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
+    button:hover, .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .hero { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 6rem 2rem; text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.3s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+    /* Dynamic component styles */
+    .dynamic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; padding: 2rem; }
+    .dynamic-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .no-data { text-align: center; padding: 2rem; color: #6b7280; }
+    /* Grid variations */
+    .grid--3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .grid--2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; }
+    .grid--4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    /* Section utilities */
+    .section__title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+    .section__text { font-size: 1.125rem; color: #6b7280; max-width: 600px; margin: 0 auto 2rem; }
+    .text-center { text-align: center; }
+    .mt-4 { margin-top: 2rem; }
+    .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: white; }
+    .btn-primary { background: var(--primary); color: white; }
+    /* Stagger animations */
+    .stagger > *:nth-child(1) { animation-delay: 0.1s; }
+    .stagger > *:nth-child(2) { animation-delay: 0.2s; }
+    .stagger > *:nth-child(3) { animation-delay: 0.3s; }
+    .stagger > *:nth-child(4) { animation-delay: 0.4s; }
+    .stagger > *:nth-child(5) { animation-delay: 0.5s; }
+    .stagger > *:nth-child(6) { animation-delay: 0.6s; }
+    /* Navbar styles */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar-brand {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .navbar-nav {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .nav-link {
+      padding: 0.5rem 1rem;
+      color: var(--text);
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .nav-link.active {
+      color: var(--primary);
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .navbar-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .navbar-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s ease;
+    }
+    /* Offset body content for fixed navbar */
+    body {
+      padding-top: 72px;
+    }
+    /* Mobile navbar */
+    @media (max-width: 768px) {
+      .navbar-toggle {
+        display: flex;
+      }
+      .navbar-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: white;
+        padding: 1rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        display: none;
+      }
+      .navbar-nav.show {
+        display: flex;
+      }
+      .nav-link {
+        width: 100%;
+        padding: 0.75rem 1rem;
+      }
+    }
+    
+    /* Collected styles from AI-generated content */
+    
     /* ========================================
            Reference Website Styles (Clone Mode)
            ======================================== */
@@ -779,587 +910,8 @@
             .stats { gap: 2rem; }
             .process { flex-direction: column; align-items: center; }
         }
-    </style>
-</head>
-<body>
-    <!-- Mobile menu overlay -->
-    <div class="nav-overlay" id="navOverlay"></div>
-
-    <nav class="navbar">
-        <div class="logo">MyManager Tournament</div>
-        <div class="nav-links" id="navLinks"><a href="index.html" class="nav-link ">Home</a>
-            <a href="events.html" class="nav-link ">Events</a>
-            <a href="studios.html" class="nav-link active">Studios</a>
-            <a href="rankings.html" class="nav-link ">Rankings</a>
-            <a href="store.html" class="nav-link ">Store</a>
-            <a href="tv.html" class="nav-link ">TV</a>
-            <a href="athletes.html" class="nav-link ">Athletes</a>
-            <a href="memberships.html" class="nav-link ">Memberships</a>
-            <a href="news.html" class="nav-link ">News</a>
-            <a href="consent-preferences.html" class="nav-link ">Consent Preferences</a></div>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
-            <span></span>
-        </button>
-    </nav>
-
-    <section class="page-header" data-animate="fadeIn" data-section-type="page-header">
-  <div class="container text-center">
-    <h1 class="page-header__title" data-animate="fadeInDown">Studios</h1>
-    <p class="page-header__subtitle" data-animate="fadeIn" data-animate-delay="0.2s">Professional tournament broadcasting and streaming facilities for comprehensive coverage of your events</p>
-  </div>
-</section>
-
-    <section class="section" data-section-type="page-intro">
-  <div class="container">
-    <div class="grid grid--2 grid--align-center">
-      <div class="intro__content" data-animate="fadeInLeft">
-        <h2 class="section__title">What is Studios?</h2>
-        <p class="section__text">Studios is MyManager Tournament's comprehensive content creation and broadcasting platform designed specifically for tournament organizers and sports organizations. It provides professional-grade streaming capabilities, automated highlight generation, and multi-camera production tools that transform any tournament into a broadcast-quality experience.</p>
-        <p class="section__text">With Studios, you can engage audiences worldwide, create revenue streams through premium content, and provide athletes with professional coverage they deserve while building your brand's digital presence.</p>
-      </div>
-      <div class="intro__image" data-animate="fadeInRight" data-animate-delay="0.2s">
-        <div class="placeholder placeholder--gradient"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <section class="section section--gray" data-section-type="page-features">
-  <div class="container">
-    <h2 class="section__title text-center" data-animate="fadeInUp">Studios Features</h2>
-    <div class="grid grid--3 stagger">
-      <div class="card" data-animate="zoomIn">
-        <span class="card__icon">🎥</span>
-        <h3 class="card__title">Live Tournament Broadcasting</h3>
-        <p class="card__text">Stream tournaments directly to audiences with professional-grade broadcasting tools. Multi-camera support and real-time graphics keep viewers engaged throughout every match.</p>
-      </div>
-      <div class="card" data-animate="zoomIn">
-        <span class="card__icon">📹</span>
-        <h3 class="card__title">Match Recording & Highlights</h3>
-        <p class="card__text">Automatically record every game with instant highlight generation for key moments. Create promotional content and player showcases with our integrated editing suite.</p>
-      </div>
-      <div class="card" data-animate="zoomIn">
-        <span class="card__icon">🎬</span>
-        <h3 class="card__title">Content Production Suite</h3>
-        <p class="card__text">Professional video production tools designed specifically for tournament content creation. Generate player interviews, tournament recaps, and promotional videos with ease.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <section class="section section--xl" style="background: var(--gradient-primary);" data-section-type="cta">
-  <div class="container text-center">
-    <div class="card--glass-dark">
-      <h2 class="section__title text-white mb-4" data-animate="fadeInUp">
-        Ready to Launch Your Tournament Studio?
-      </h2>
-      <p class="text-xl mb-8" data-animate="fadeInUp" data-animate-delay="0.1s">
-        Join thousands of tournament organizers who've transformed their events with our complete studio management platform. Limited-time setup bonus for new studios!
-      </p>
-      <div class="flex justify-center gap-4 flex-wrap" data-animate="fadeInUp" data-animate-delay="0.2s">
-        <a href="#contact" class="btn btn-white btn-xl btn--shine">Start Your Studio Free →</a>
-        <a href="#services" class="btn btn-outline btn-xl">View Studio Features</a>
-      </div>
-      <p class="mt-6 text-sm" data-animate="fadeIn" data-animate-delay="0.3s">
-        ✓ No setup fees through Dec 31, 2025 &nbsp;&nbsp; ✓ Free migration assistance &nbsp;&nbsp; ✓ 30-day money-back guarantee
-      </p>
-    </div>
-  </div>
-</section>
-
-    <footer class="footer">
-  <div class="container">
-    <div class="footer__grid">
-      <div>
-        <h3 class="footer__brand">MyManager Tournament</h3>
-        <p class="footer__description">Complete Tournament Management Platform</p>
-        <div class="footer__social">
-          <a href="#" aria-label="Facebook">📘</a>
-          <a href="#" aria-label="Twitter">🐦</a>
-          <a href="#" aria-label="Instagram">📷</a>
-          <a href="#" aria-label="LinkedIn">💼</a>
-        </div>
-      </div>
-      <div>
-        <h4 class="footer__title">Quick Links</h4>
-        <ul class="footer__links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="studios.html">Studios</a></li>
-          <li><a href="rankings.html">Rankings</a></li>
-          <li><a href="athletes.html">Athletes</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="footer__title">Services</h4>
-        <ul class="footer__links">
-          <li><a href="#">Tournament Management</a></li>
-          <li><a href="#">Studio Registration</a></li>
-          <li><a href="#">Event Scheduling</a></li>
-          <li><a href="#">Payment Processing</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="footer__title">Contact Info</h4>
-        <ul class="footer__links">
-          <li>📍 Orlando, Florida</li>
-          <li>📞 (407) 555-TOUR</li>
-          <li>✉️ info@mymanagertournament.com</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <p>© 2026 MyManager Tournament. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
-
-    <script>
-        // Mobile menu toggle
-        (function() {
-            const navToggle = document.getElementById('navToggle');
-            const navLinks = document.getElementById('navLinks');
-            const navOverlay = document.getElementById('navOverlay');
-
-            if (navToggle && navLinks) {
-                navToggle.addEventListener('click', function() {
-                    navToggle.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                    if (navOverlay) navOverlay.classList.toggle('active');
-                    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-                });
-
-                // Close menu when clicking overlay
-                if (navOverlay) {
-                    navOverlay.addEventListener('click', function() {
-                        navToggle.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        navOverlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                }
-
-                // Close menu when clicking a link
-                navLinks.querySelectorAll('a').forEach(function(link) {
-                    link.addEventListener('click', function() {
-                        navToggle.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        if (navOverlay) navOverlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                });
-            }
-        })();
-
-        // Intersection Observer for scroll animations using Animate.css
-        const animateOnScroll = () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const el = entry.target;
-                        const animationType = el.dataset.animate || 'fadeInUp';
-                        const delay = el.dataset.animateDelay || '0s';
-
-                        // Set custom delay if specified
-                        if (delay !== '0s') {
-                            el.style.setProperty('--animate-delay', delay);
-                        }
-
-                        // Add Animate.css classes
-                        el.classList.add('animate__animated', 'animate__' + animationType);
-
-                        // Clean up after animation completes
-                        el.addEventListener('animationend', () => {
-                            el.classList.remove('animate__animated', 'animate__' + animationType);
-                            el.style.opacity = '1';
-                        }, { once: true });
-
-                        observer.unobserve(el);
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '50px' });
-
-            document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
-        };
-
-        // Three.js background effect
-        const initThreeJS = () => {
-            const heroSection = document.querySelector('section:first-of-type, .hero');
-            if (!heroSection) return;
-
-            // Create canvas container
-            const canvas = document.createElement('canvas');
-            canvas.id = 'hero-canvas';
-            heroSection.style.position = 'relative';
-            heroSection.insertBefore(canvas, heroSection.firstChild);
-
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, heroSection.offsetWidth / heroSection.offsetHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-            renderer.setSize(heroSection.offsetWidth, heroSection.offsetHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-            // Get theme colors
-            const primary = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#3b82f6';
-            const secondary = getComputedStyle(document.documentElement).getPropertyValue('--secondary').trim() || '#8b5cf6';
-
-            
-            // Particle system
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 200;
-            const posArray = new Float32Array(particlesCount * 3);
-
-            for (let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 10;
-            }
-
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.02,
-                color: primary,
-                transparent: true,
-                opacity: 0.8
-            });
-
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
-
-            camera.position.z = 3;
-
-            let mouseX = 0, mouseY = 0;
-            document.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-            });
-
-            const animate = () => {
-                requestAnimationFrame(animate);
-                particlesMesh.rotation.x += 0.001;
-                particlesMesh.rotation.y += 0.001;
-                particlesMesh.rotation.x += mouseY * 0.0005;
-                particlesMesh.rotation.y += mouseX * 0.0005;
-                renderer.render(scene, camera);
-            };
-            
-
-            animate();
-
-            // Handle resize
-            window.addEventListener('resize', () => {
-                camera.aspect = heroSection.offsetWidth / heroSection.offsetHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(heroSection.offsetWidth, heroSection.offsetHeight);
-            });
-        };
-
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', () => {
-            animateOnScroll();
-            if (typeof THREE !== 'undefined') {
-                initThreeJS();
-            }
-        });
-    </script>
     
-    <!-- WebBuilder Dynamic Hydration Script -->
-    <script>
-    (function() {
-      'use strict';
 
-      // Configuration
-      const CONFIG = {
-        apiBaseUrl: 'http://192.168.1.159:5003',
-        orgId: '69600bf2b068242822a051ca',
-        debug: true // Enable debug mode to help diagnose issues
-      };
-
-      // Log initial config
-      console.log('[WebBuilder Hydration] Config:', CONFIG);
-      console.log('[WebBuilder Hydration] API Base URL:', CONFIG.apiBaseUrl);
-      console.log('[WebBuilder Hydration] Org ID:', CONFIG.orgId);
-
-      const API_URL = CONFIG.apiBaseUrl + '/api/webbuilder-public/' + CONFIG.orgId;
-      console.log('[WebBuilder Hydration] Full API URL:', API_URL);
-
-      // Utility: Format date
-      const formatDate = (dateStr) => {
-        if (!dateStr) return '';
-        const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      };
-
-      // Utility: Format price
-      const formatPrice = (price, currency = 'USD') => {
-        if (price === 0) return 'Free';
-        return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(price);
-      };
-
-      // Utility: Truncate text
-      const truncate = (text, maxLength = 100) => {
-        if (!text || text.length <= maxLength) return text || '';
-        return text.substring(0, maxLength).trim() + '...';
-      };
-
-      // Component Renderers
-      const renderers = {
-        // Events component
-        // API returns { success: true, data: [...events] } where each event has:
-        // title, eventStartDate, eventEndDate, venue, description, image, eventBanner
-        'live-events': (data, container) => {
-          const events = Array.isArray(data) ? data : (data.data || data.events || []);
-          if (!events.length) {
-            container.innerHTML = '<p class="no-data">No upcoming events</p>';
-            return;
-          }
-          container.innerHTML = events.slice(0, 6).map(event => `
-            <div class="dynamic-card event-card">
-              ${(event.image || event.eventBanner) ? `<img src="${event.image || event.eventBanner}" alt="${event.title}" class="card-image">` : ''}
-              <div class="card-content">
-                <span class="card-date">${formatDate(event.eventStartDate || event.startDate)}</span>
-                <h3 class="card-title">${event.title || event.name}</h3>
-                <p class="card-description">${truncate(event.description, 120)}</p>
-                ${(event.venue || event.location) ? `<span class="card-location">📍 ${event.venue || event.location}</span>` : ''}
-                <a href="${event.registrationUrl || '#'}" class="card-btn">Register</a>
-              </div>
-            </div>
-          `).join('');
-        },
-
-        // Tournaments component
-        'live-tournaments': (data, container) => {
-          const tournaments = data.tournaments || data || [];
-          if (!tournaments.length) {
-            container.innerHTML = '<p class="no-data">No upcoming tournaments</p>';
-            return;
-          }
-          container.innerHTML = tournaments.slice(0, 6).map(tournament => `
-            <div class="dynamic-card tournament-card">
-              ${tournament.image ? `<img src="${tournament.image}" alt="${tournament.name}" class="card-image">` : ''}
-              <div class="card-content">
-                <span class="card-date">${formatDate(tournament.startDate)}</span>
-                <h3 class="card-title">${tournament.name}</h3>
-                <p class="card-description">${truncate(tournament.description, 120)}</p>
-                ${tournament.location ? `<span class="card-location">📍 ${tournament.location}</span>` : ''}
-                <a href="${tournament.registrationUrl || '#'}" class="card-btn">Register</a>
-              </div>
-            </div>
-          `).join('');
-        },
-
-        // Classes component
-        'live-classes': (data, container) => {
-          const classes = data.classes || data || [];
-          if (!classes.length) {
-            container.innerHTML = '<p class="no-data">No classes available</p>';
-            return;
-          }
-          container.innerHTML = classes.slice(0, 6).map(cls => `
-            <div class="dynamic-card class-card">
-              ${cls.image ? `<img src="${cls.image}" alt="${cls.name}" class="card-image">` : ''}
-              <div class="card-content">
-                <h3 class="card-title">${cls.name}</h3>
-                <p class="card-description">${truncate(cls.description, 100)}</p>
-                ${cls.instructor ? `<span class="card-instructor">👤 ${cls.instructor}</span>` : ''}
-                ${cls.schedule ? `<span class="card-schedule">📅 ${cls.schedule}</span>` : ''}
-                <a href="#" class="card-btn">Book Now</a>
-              </div>
-            </div>
-          `).join('');
-        },
-
-        // Memberships component
-        'live-memberships': (data, container) => {
-          const memberships = data.memberships || data || [];
-          if (!memberships.length) {
-            container.innerHTML = '<p class="no-data">No membership plans available</p>';
-            return;
-          }
-          container.innerHTML = memberships.slice(0, 4).map((plan, index) => `
-            <div class="dynamic-card membership-card ${index === 1 ? 'featured' : ''}">
-              <div class="card-content">
-                <h3 class="card-title">${plan.name}</h3>
-                <div class="card-price">
-                  <span class="price-amount">${formatPrice(plan.price)}</span>
-                  <span class="price-period">/${plan.billingPeriod || 'month'}</span>
-                </div>
-                <p class="card-description">${truncate(plan.description, 80)}</p>
-                <ul class="card-features">
-                  ${(plan.features || []).slice(0, 5).map(f => `<li>✓ ${f}</li>`).join('')}
-                </ul>
-                <a href="${plan.signupUrl || '#'}" class="card-btn">Get Started</a>
-              </div>
-            </div>
-          `).join('');
-        },
-
-        // Products component
-        'live-products': (data, container) => {
-          const products = data.products || data || [];
-          if (!products.length) {
-            container.innerHTML = '<p class="no-data">No products available</p>';
-            return;
-          }
-          container.innerHTML = products.slice(0, 8).map(product => `
-            <div class="dynamic-card product-card">
-              ${product.image ? `<img src="${product.image}" alt="${product.name}" class="card-image">` : ''}
-              <div class="card-content">
-                <h3 class="card-title">${product.name}</h3>
-                <p class="card-description">${truncate(product.description, 80)}</p>
-                <div class="card-price">${formatPrice(product.price)}</div>
-                <a href="${product.purchaseUrl || '#'}" class="card-btn">Buy Now</a>
-              </div>
-            </div>
-          `).join('');
-        },
-
-        // Courses component
-        'live-courses': (data, container) => {
-          const courses = data.courses || data || [];
-          if (!courses.length) {
-            container.innerHTML = '<p class="no-data">No courses available</p>';
-            return;
-          }
-          container.innerHTML = courses.slice(0, 6).map(course => `
-            <div class="dynamic-card course-card">
-              ${course.image ? `<img src="${course.image}" alt="${course.title}" class="card-image">` : ''}
-              <div class="card-content">
-                <h3 class="card-title">${course.title}</h3>
-                <p class="card-description">${truncate(course.description, 100)}</p>
-                ${course.level ? `<span class="card-badge">${course.level}</span>` : ''}
-                ${course.duration ? `<span class="card-duration">⏱ ${course.duration}</span>` : ''}
-                <a href="${course.enrollUrl || '#'}" class="card-btn">Enroll Now</a>
-              </div>
-            </div>
-          `).join('');
-        },
-
-        // Bookings component
-        'live-bookings': (data, container) => {
-          const bookings = data.bookingTypes || data || [];
-          if (!bookings.length) {
-            container.innerHTML = '<p class="no-data">No booking options available</p>';
-            return;
-          }
-          container.innerHTML = bookings.slice(0, 6).map(booking => `
-            <div class="dynamic-card booking-card">
-              <div class="card-content">
-                <h3 class="card-title">${booking.name}</h3>
-                <p class="card-description">${truncate(booking.description, 100)}</p>
-                ${booking.duration ? `<span class="card-duration">⏱ ${booking.duration} min</span>` : ''}
-                ${booking.price ? `<div class="card-price">${formatPrice(booking.price)}</div>` : ''}
-                <a href="${booking.bookUrl || '#'}" class="card-btn">Book Now</a>
-              </div>
-            </div>
-          `).join('');
-        },
-
-        // Locations component
-        'live-locations': (data, container) => {
-          const locations = data.locations || data || [];
-          if (!locations.length) {
-            container.innerHTML = '<p class="no-data">No locations available</p>';
-            return;
-          }
-          container.innerHTML = locations.map(location => `
-            <div class="dynamic-card location-card">
-              ${location.image ? `<img src="${location.image}" alt="${location.name}" class="card-image">` : ''}
-              <div class="card-content">
-                <h3 class="card-title">${location.name}</h3>
-                <p class="card-address">📍 ${location.address}</p>
-                ${location.phone ? `<p class="card-phone">📞 ${location.phone}</p>` : ''}
-                ${location.hours ? `<p class="card-hours">🕐 ${location.hours}</p>` : ''}
-                <a href="${location.mapUrl || '#'}" class="card-btn" target="_blank">Get Directions</a>
-              </div>
-            </div>
-          `).join('');
-        }
-      };
-
-      // Fetch data and hydrate component
-      async function hydrateComponent(container) {
-        const componentType = container.dataset.component;
-        const endpoint = componentType.replace('live-', '');
-
-        if (!renderers[componentType]) {
-          console.warn('Unknown component type:', componentType);
-          return;
-        }
-
-        // Show loading state
-        container.classList.add('loading');
-
-        // Build query params from data attributes
-        const params = new URLSearchParams();
-        if (container.dataset.limit) params.append('limit', container.dataset.limit);
-        if (container.dataset.upcoming === 'true') params.append('upcoming', 'true');
-        if (container.dataset.featured === 'true') params.append('featured', 'true');
-        const queryString = params.toString() ? '?' + params.toString() : '';
-
-        const fetchUrl = API_URL + '/' + endpoint + queryString;
-        console.log('[WebBuilder Hydration] Fetching:', fetchUrl);
-
-        try {
-          const response = await fetch(fetchUrl);
-          console.log('[WebBuilder Hydration] Response status:', response.status, response.statusText);
-
-          if (!response.ok) {
-            throw new Error('Failed to fetch ' + endpoint + ' - Status: ' + response.status);
-          }
-
-          const result = await response.json();
-          const data = result.data || result;
-
-          console.log('[WebBuilder Hydration] Received data for', componentType, ':', data);
-
-          renderers[componentType](data, container);
-          container.classList.remove('loading');
-          container.classList.add('loaded');
-
-          if (CONFIG.debug) console.log('[WebBuilder Hydration] Hydrated:', componentType, 'with', Array.isArray(data) ? data.length : 1, 'items');
-        } catch (error) {
-          console.error('[WebBuilder Hydration] Error for', componentType, ':', error.message);
-          console.error('[WebBuilder Hydration] Attempted URL:', fetchUrl);
-          container.innerHTML = '<p class="error" style="color: #ef4444; padding: 1rem; text-align: center;">Unable to load ' + endpoint + '. API: ' + fetchUrl + '</p>';
-          container.classList.remove('loading');
-          container.classList.add('error');
-        }
-      }
-
-      // Initialize hydration
-      function initHydration() {
-        const dynamicContainers = document.querySelectorAll('[data-component]');
-
-        if (CONFIG.debug) {
-          console.log('WebBuilder Hydration: Found', dynamicContainers.length, 'dynamic components');
-        }
-
-        dynamicContainers.forEach(container => {
-          // Use IntersectionObserver for lazy loading
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                hydrateComponent(entry.target);
-                observer.unobserve(entry.target);
-              }
-            });
-          }, { rootMargin: '100px' });
-
-          observer.observe(container);
-        });
-      }
-
-      // Run on DOM ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initHydration);
-      } else {
-        initHydration();
-      }
-    })();
-    </script>
-
-    <!-- Dynamic Component Styles -->
-    <style>
       /* Dynamic component container */
       [data-component] {
         display: grid;
@@ -1510,7 +1062,140 @@
       .error {
         color: #ef4444;
       }
-    </style>
+    
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">MyManager Tournament</a>
+    <button class="navbar-toggle" onclick="this.nextElementSibling.classList.toggle('show')" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link ">Home</a>
+            <a href="events.html" class="nav-link ">Events</a>
+            <a href="studios.html" class="nav-link active">Studios</a>
+            <a href="rankings.html" class="nav-link ">Rankings</a>
+            <a href="store.html" class="nav-link ">Store</a>
+            <a href="tv.html" class="nav-link ">TV</a>
+            <a href="athletes.html" class="nav-link ">Athletes</a>
+            <a href="memberships.html" class="nav-link ">Memberships</a>
+            <a href="news.html" class="nav-link ">News</a>
+            <a href="consent-preferences.html" class="nav-link ">Consent Preferences</a>
+    </div>
+  </nav>
+<section class="page-header" data-animate="fadeIn" data-section-type="page-header">
+  <div class="container text-center">
+    <h1 class="page-header__title" data-animate="fadeInDown">Studios</h1>
+    <p class="page-header__subtitle" data-animate="fadeIn" data-animate-delay="0.2s">Professional tournament broadcasting and streaming facilities for comprehensive coverage of your events</p>
+  </div>
+</section>
 
+<section class="section" data-section-type="page-intro">
+  <div class="container">
+    <div class="grid grid--2 grid--align-center">
+      <div class="intro__content" data-animate="fadeInLeft">
+        <h2 class="section__title">What is Studios?</h2>
+        <p class="section__text">Studios is MyManager Tournament's comprehensive content creation and broadcasting platform designed specifically for tournament organizers and sports organizations. It provides professional-grade streaming capabilities, automated highlight generation, and multi-camera production tools that transform any tournament into a broadcast-quality experience.</p>
+        <p class="section__text">With Studios, you can engage audiences worldwide, create revenue streams through premium content, and provide athletes with professional coverage they deserve while building your brand's digital presence.</p>
+      </div>
+      <div class="intro__image" data-animate="fadeInRight" data-animate-delay="0.2s">
+        <div class="placeholder placeholder--gradient"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--gray" data-section-type="page-features">
+  <div class="container">
+    <h2 class="section__title text-center" data-animate="fadeInUp">Studios Features</h2>
+    <div class="grid grid--3 stagger">
+      <div class="card" data-animate="zoomIn">
+        <span class="card__icon">🎥</span>
+        <h3 class="card__title">Live Tournament Broadcasting</h3>
+        <p class="card__text">Stream tournaments directly to audiences with professional-grade broadcasting tools. Multi-camera support and real-time graphics keep viewers engaged throughout every match.</p>
+      </div>
+      <div class="card" data-animate="zoomIn">
+        <span class="card__icon">📹</span>
+        <h3 class="card__title">Match Recording &amp; Highlights</h3>
+        <p class="card__text">Automatically record every game with instant highlight generation for key moments. Create promotional content and player showcases with our integrated editing suite.</p>
+      </div>
+      <div class="card" data-animate="zoomIn">
+        <span class="card__icon">🎬</span>
+        <h3 class="card__title">Content Production Suite</h3>
+        <p class="card__text">Professional video production tools designed specifically for tournament content creation. Generate player interviews, tournament recaps, and promotional videos with ease.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--xl" style="background: var(--gradient-primary);" data-section-type="cta">
+  <div class="container text-center">
+    <div class="card--glass-dark">
+      <h2 class="section__title text-white mb-4" data-animate="fadeInUp">
+        Ready to Launch Your Tournament Studio?
+      </h2>
+      <p class="text-xl mb-8" data-animate="fadeInUp" data-animate-delay="0.1s">
+        Join thousands of tournament organizers who've transformed their events with our complete studio management platform. Limited-time setup bonus for new studios!
+      </p>
+      <div class="flex justify-center gap-4 flex-wrap" data-animate="fadeInUp" data-animate-delay="0.2s">
+        <a href="#contact" class="btn btn-white btn-xl btn--shine">Start Your Studio Free →</a>
+        <a href="#services" class="btn btn-outline btn-xl">View Studio Features</a>
+      </div>
+      <p class="mt-6 text-sm" data-animate="fadeIn" data-animate-delay="0.3s">
+        ✓ No setup fees through Dec 31, 2025 &nbsp;&nbsp; ✓ Free migration assistance &nbsp;&nbsp; ✓ 30-day money-back guarantee
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <h3 class="footer__brand">MyManager Tournament</h3>
+        <p class="footer__description">Complete Tournament Management Platform</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Facebook">📘</a>
+          <a href="#" aria-label="Twitter">🐦</a>
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="LinkedIn">💼</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer__title">Quick Links</h4>
+        <ul class="footer__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="studios.html">Studios</a></li>
+          <li><a href="rankings.html">Rankings</a></li>
+          <li><a href="athletes.html">Athletes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__title">Services</h4>
+        <ul class="footer__links">
+          <li><a href="#">Tournament Management</a></li>
+          <li><a href="#">Studio Registration</a></li>
+          <li><a href="#">Event Scheduling</a></li>
+          <li><a href="#">Payment Processing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__title">Contact Info</h4>
+        <ul class="footer__links">
+          <li>📍 Orlando, Florida</li>
+          <li>📞 (407) 555-TOUR</li>
+          <li>✉️ info@mymanagertournament.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 MyManager Tournament. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
